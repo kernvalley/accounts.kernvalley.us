@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="no-js border-box smooth-scroll" data-layout="right-sidebar" data-theme="auto" prefix="og: http://ogp.me/ns#" itemtype="https://schema.org/WebPage" itemscope="">
+	<head>
+		<base href="/" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="robots" content="follow,index" />
+		<meta name="description" content="" />
+		<meta itemprop="description" content="" />
+		<meta name="keywords" content="" />
+		<meta itemprop="keywords" content="" />
+		<meta name="referrer" content="origin-when-cross-origin"/>
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta itemprop="thumbnailUrl" content="" />
+		<!-- Social data -->
+		<!-- Facebook | OpenGraph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content="" />
+		<meta property="og:url" content="" />
+		<meta property="og:description" content="" />
+		<meta property="og:keywords" content="" />
+		<meta property="og:image" content="" />
+		<meta property="og:image:height" content="" />
+		<meta property="og:image:width" content="" />
+		<!-- /Facebook | OpenGraph -->
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:creator" content="" />
+		<meta name="twitter:description" content="" />
+		<meta name="twitter:image" content="" />
+		<!-- /Twitter -->
+		<!-- /Social data -->
+		<meta name="msapplication-TileColor" content="#007bff" />
+		<meta name="msapplication-config" content="/browserconfig.xml" />
+		<meta name="theme-color" content="#007bff" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="#007bff" />
+		<title itemprop="headline">Static Template</title>
+		<!-- <script type="module" src="/js/index.js" async=""></script> -->
+		<script src="/js/index.min.js" async=""></script>
+		<link rel="manifest" href="/manifest.json" />
+		<link rel="license" href="/LICENSE" />
+		<link rel="icon" href="/img/favicon.svg" type="image/svg+xml" sizes="any" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/img/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/img/icon-16.png" />
+		<link rel="mask-icon" href="/img/safari-pinned-tab.svg" color="#007bff" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="preload" href="https://cdn.polyfill.io/v3/polyfill.min.js" as="script" type="application/javascript" crossorigin="anonymous" referrerpolicy="no-referrer" importance="high" />
+		<link rel="preload" href="/img/icons.svg" as="image" type="image/svg+xml" />
+		<link rel="preload" href="https://cdn.kernvalley.us/components/ad/block.css" as="style" type="text/css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preload" href="https://cdn.kernvalley.us/components/spotify/player.css" as="style" type="text/css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preload" href="https://cdn.kernvalley.us/components/weather/current.css" as="style" type="text/css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preload" href="https://cdn.kernvalley.us/components/github/user.css" as="style" type="text/css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preload" href="https://cdn.kernvalley.us/components/share-to-button/share-to-button.css" as="style" type="text/css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preconnect" href="https://api.github.com" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<link rel="preconnect" href="https://baconipsum.com" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<!-- <link rel="stylesheet" href="/css/index.css" media="all" /> -->
+		<link rel="stylesheet" href="/css/index.min.css" media="all" />
+	</head>
+	<body id="top" class="grid font-main background-primary color-default overflow-x-hidden">
+		<header id="header" class="background-cover background-fixed"></header>
+		<nav id="nav" class="sticky top shadow background-accent color-alt z-3 flex row no-wrap overflow-x-auto">
+			<button type="button" is="app-list" id="app-menu" source="static-demo" title="Show KRV Apps Menu" hidden="">
+				<svg class="icon" width="22" height="22" fill="currentColor" role="img" aria-hidde="true">
+					<use xlink:href="/img/icons.svg#apps"></use>
+				</svg>
+			</button>
+			<button is="pwa-install" id="install-btn" src="/service-worker.js" scope="/" title="Install Web App" reloadonupdate="" hidden="">
+				<svg class="icon" height="22" width="22" fill="currentColor" role="img" aria-hidden="true">
+					<use xlink:href="/img/icons.svg#system-software-install"></use>
+				</svg>
+				<span class="mobile-hidden">Install</span>
+			</button>
+		</nav>
+		<main id="main" class="card shadow">
+			<article>
+				<header class="card">
+					<h2 class="center">Bacon Ipsum</h2>
+					<details>
+						<summary>
+							<span>By</span>
+							<img is="gravatar-img" email="admin@kernvalley.us" class="round avatar" alt="Gravatar" sizes="2rem" />
+							<b>Chris Zuber</b>
+						</summary>
+						<div>Published on <time is="date-locale" datetime="2020-07-16T15:57-07:00">Oct. 26, 2019</time></div>
+					</details>
+					<hr />
+					<details open="">
+						<summary>
+							<svg class="current-color icon" width="16" height="16" aria-hidden="true" aria-label="icon" aria-role="img">
+								<use xlink:href="/img/icons.svg#public-share"></use>
+							</svg>
+							<span>Share on</span>
+						</summary>
+						<div class="flex row wrap" id="share-target">
+							<share-to-button  title="Share on Facebook" tabindex="0" target="facebook">
+								<span slot="text">Facebook</span>
+							</share-to-button>
+							<share-to-button  title="Share on Twitter" tabindex="0" target="twitter">
+								<span slot="text">Twitter</span>
+							</share-to-button>
+							<share-to-button  title="Share on LinkedIn" tabindex="0" target="linkedin">
+								<span slot="text">LinkedIn</span>
+							</share-to-button>
+							<share-to-button  title="Share on Reddit" tabindex="0" target="reddit">
+								<span slot="text">Reddit</span>
+							</share-to-button>
+							<share-to-button  title="Share with Gmail" tabindex="0" target="gmail">
+								<span slot="text">Gmail</span>
+							</share-to-button>
+						</div>
+					</details>
+				</header>
+				<section data-columns="auto">
+					<bacon-ipsum paras="8"></bacon-ipsum>
+				</section>
+				<section class="center">
+					<br />
+					<youtube-player video="dQw4w9WgXcQ" loading="lazy" class="card shadow inline-block"></youtube-player>
+				</section>
+			</article>
+		</main>
+		<aside id="sidebar" class="card shadow center">
+			<weather-current postalcode="93240" appid="f6825b626e68392fba2e4488a204f986" loading="lazy" theme="auto"></weather-current>
+			<spotify-player uri="spotify:playlist:37i9dQZF1DWUk47CLxI4Uo" loading="lazy" class="full-width" large=""></spotify-player>
+			<ad-block url="https://ads.kernvalley.us" id="57c7036d-f128-4506-962b-373b8fb5ea78" medium="web" source="static-demo" campaign="kv-ads" layout="stack" theme="auto" loading="lazy">
+				<span slot="label">Kern Valley Ads</span>
+				<span slot="description">Advertise on websites throughout the Kern River Valley</span>
+				<span slot="calltoaction">Click here to get started!</span>
+				<img slot="image" src="https://cdn.kernvalley.us/img/branding/ads.kernvalley.us.svg" loading="lazy" decoding="async" alt="KV Ads logo" crossorigin="anonymous" referrerpolicy="no-referrer" width="64" height="64" />
+			</ad-block>
+		</aside>
+		<footer id="footer">
+			<div class="social-links cols-2">
+				<div class="cols inline-block">
+					<a class="block" href="https://github.com/shgysk8zer0/" target="_blank" rel="external noopener noreferrer">
+						<svg class="icon social-icon" fill="currentColor" width="18" height="18" aria-hidden="true" aria-label="icon" role="img">
+							<use xlink:href="/img/icons.svg#mark-github"></use>
+						</svg>
+						<span>GitHub Profile</span>
+					</a>
+					<a class="block" href="https://github.com/shgysk8zer0/static-template" target="_blank" rel="external noopener noreferrer">
+						<svg class="icon social-icon" fill="currentColor" width="18" height="18" aria-hidden="true" aria-label="icon" role="img">
+							<use xlink:href="/img/icons.svg#repo"></use>
+						</svg>
+						<span>GitHub Repo</span>
+					</a>
+					<a class="block" href="https://github.com/shgysk8zer0/static-template/issues" target="_blank" rel="external noopener noreferrer">
+						<svg class="icon social-icon" fill="currentColor" width="18" height="18" aria-hidden="true" aria-label="icon" role="img">
+							<use xlink:href="/img/icons.svg#issue-opened" />
+						</svg>
+						<span>Report a Problem</span>
+					</a>
+				</div>
+				<div class="cols inline-block">
+					<a class="block" href="https://kernvalley.us" target="_blank" rel="external noopener noreferrer" itemprop="sameAs">
+						<svg class="icon social-icon" fill="currentColor" width="18" height="18" aria-hidden="true" aria-label="icon" role="img">
+							<use xlink:href="/img/icons.svg#web-browser"></use>
+						</svg>
+						<span>My Website</span>
+					</a>
+					<a class="block" href="https://twitter.com/kern_valley" target="_blank" rel="external noopener noreferrer" itemprop="sameAs">
+						<svg class="icon social-icon" fill="currentColor" width="18" height="18" aria-hidden="true" aria-label="icon" role="img">
+							<use xlink:href="/img/icons.svg#twitter"></use>
+						</svg>
+						<span>On Twitter</span>
+					</a>
+					<a class="block" href="https://www.linkedin.com/in/chris-zuber-455346141/" target="_blank" rel="external noopener noreferrer" itemprop="sameAs">
+						<svg class="icon social-icon" fill="currentColor" width="18" height="18" aria-hidden="true" aria-label="icon" role="img">
+							<use xlink:href="/img/icons.svg#linkedin"></use>
+						</svg>
+						<span>LinkedIn</span>
+					</a>
+				</div>
+			</div>
+			<hr />
+			<div class="copyright">
+				<github-user user="kernvalley" loading="lazy">
+					<h3 slot="header" class="center">Created By</h3>
+					<div slot="footer">
+						<span>©</span>
+						<time itemprop="copyrightYear">2020</time>
+						<span itemprop="copyrightHolder" itemtype="https://schema.org/Organization" itemscope="" hidden="">
+							<a href="https://kernvalley.us" target="_blank" rel="external noopener noreferrer" itemprop="url">
+								<span itemprop="name">KernValley.US</span>
+							</a>
+						</span>
+					</div>
+				</github-user>
+			</div>
+		</footer>
+		<button type="button" is="share-button" class="btn btn-primary round shadow fixed z-4" aria-label="Share" hidden="">
+			<svg class="icon" height="20" width="20" fill="currentColor" aria-hidden="true" role="img">
+				<use xlink:href="/img/icons.svg#public-share"></use>
+			</svg>
+		</button>
+	</body>
+</html>
