@@ -1,13 +1,13 @@
 {
-  "name": "static template",
-  "short_name": "static",
+  "name": "Kern Valley Accounts",
+  "short_name": "KRV Accounts",
   "version": "1.0.0",
   "lang": "en",
   "dir": "ltr",
-  "description": "A template repository for static sites, including skeleton JS, CSS, SVGs, fonts, etc.",
+  "description": "Account management for KernValley.US sites",
   "orientation": "any",
   "start_url": "/",
-  "theme_color": "#007bff",
+  "theme_color": "#008000",
   "background_color": "#242424",
   "display": "standalone",
   "icons": [{
@@ -27,13 +27,31 @@
     "purpose": "any maskable"
   }],
   "screenshots": [{
-    "src": "https://i.imgur.com/Mx3Wlp0l.jpeg",
-    "sizes": "640x313",
+    "src": "https://i.imgur.com/vfSJQYW.jpg",
+    "sizes": "1353x667",
+    "type": "image/jpeg"
+  }, {
+    "src": "https://i.imgur.com/vfSJQYWh.jpg",
+    "sizes": "1024x505",
+    "type": "image/jpeg"
+  }, {
+    "src": "https://i.imgur.com/vfSJQYWl.jpg",
+    "sizes": "640x316",
+    "type": "image/jpeg"
+  }, {
+    "src": "https://i.imgur.com/vfSJQYWm.jpg",
+    "sizes": "320x158",
+    "type": "image/jpeg"
+  }, {
+    "src": "https://i.imgur.com/vfSJQYWt.jpg",
+    "sizes": "160x79",
     "type": "image/jpeg"
   }],
   "shortcuts": [],
   "share_target": {},
-  "categories": [],
+  "categories": [
+    "utility"
+  ],
   "related_applications": [],
   "developer": {
 		"name": "Chris Zuber",
