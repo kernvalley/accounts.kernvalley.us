@@ -43,6 +43,7 @@
       "launchQueue": "readonly",
       "cookieStore": "readonly",
       "showOpenFilePicker": "readonly",
-      "showSaveFilePicker": "readonly"
+      "showSaveFilePicker": "readonly",
+      "PasswordCredential": "readonly"
     }
 }

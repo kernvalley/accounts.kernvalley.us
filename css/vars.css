@@ -2,5 +2,12 @@
 @import url("https://cdn.kernvalley.us/css/core-css/theme/properties.css");
 
 :root {
-	--map-width: 100%;
+	--accent-color-light: #008000;
+	--accent-color-dark: var(--accent-color-light);
+	--button-primary-background-light: var(--accent-color-light);
+	--button-primary-background-dark: var(--button-primary-background-light);
+	--button-primary-hover-background-light: #056F05;
+	--button-primary-hover-background-dark: var(--button-primary-hover-background-light);
+	--button-primary-active-background-light: #084708;
+	--button-primary-active-background-dark: var(----button-primary-active-background-light);
 }

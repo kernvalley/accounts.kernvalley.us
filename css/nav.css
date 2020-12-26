@@ -1,6 +1,7 @@
 #nav {
 	padding: 0.6em;
 	font-size: 1.2em;
+	grid-area: nav;
 }
 
 #install-btn, #app-menu {

@@ -2,6 +2,7 @@
 	padding: 1.4em;
 	background-color: #232323;
 	color: #fafafa;
+	grid-area: footer;
 }
 
 .social-links {

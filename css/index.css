@@ -6,17 +6,26 @@
 @import url("https://cdn.kernvalley.us/css/core-css/element.css");
 @import url("https://cdn.kernvalley.us/css/core-css/class-rules.css");
 @import url("https://cdn.kernvalley.us/css/core-css/cdn-fonts.css");
-@import url("https://cdn.kernvalley.us/css/animate.css/animate.css");
-@import url("https://cdn.kernvalley.us/css/core-css/animations.css");
+@import url("https://cdn.kernvalley.us/css/core-css/forms.css");
 @import url("https://cdn.kernvalley.us/css/core-css/scrollbar.css");
-@import url("https://cdn.kernvalley.us/css/core-css/accordion.css");
 @import url("./layout.css");
 
-img.avatar {
-	vertical-align: middle;
-	margin-left: 1.2em;
+.btns.flex {
+	gap: 12px;
 }
 
-.full-width {
-	width: 100%;
+.btns .btn {
+	max-width: 250px;
+}
+
+.flex.space-evenly {
+	justify-content: space-evenly;
+}
+
+.form-dialog {
+	border-radius: 12px;
+}
+
+.btn.btn-outline:disabled {
+	color: #dadada;
 }
