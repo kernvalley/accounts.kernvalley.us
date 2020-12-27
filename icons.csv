@@ -16,3 +16,6 @@ apps,img/apps.svg
 mail-read,img/octicons/mail-read.svg
 dialog-password,img/adwaita-icons/status/dialog-password.svg
 mail,img/octicons/mail.svg
+sign-in,img/octicons/sign-in.svg
+dialog-warning,img/adwaita-icons/dialog-wanring.svg
+contact-new,img/adwaita-icons/actions/contact-new.svg

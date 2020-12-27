@@ -1,7 +1,7 @@
 {
   "name": "Kern Valley Accounts",
   "short_name": "KRV Accounts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "lang": "en",
   "dir": "ltr",
   "description": "Account management for KernValley.US sites",

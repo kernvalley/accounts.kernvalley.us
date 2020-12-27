@@ -22,10 +22,31 @@
 	justify-content: space-evenly;
 }
 
-.form-dialog {
+dialog.form-dialog[open] {
 	border-radius: 12px;
+	max-width: 80%;
+	width: 550px;
+}
+
+@media (max-width: 600px) {
+	dialog.form-dialog[open] {
+		max-width: 95%;
+	}
 }
 
 .btn.btn-outline:disabled {
 	color: #dadada;
+}
+
+.btn.btn-outline.reset-link {
+	margin-top: 1.5em;
+	color: #db3a3a;
+}
+
+.error-message {
+	max-width: 400px;
+}
+
+.error-message:empty {
+	display: none;
 }
