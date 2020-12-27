@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Set "kv-user" cookie on sign-in and registration
+- Implement handling of redirects on login/logout
 
 ### Changed
 - Pass around search params on redirects

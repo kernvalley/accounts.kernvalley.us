@@ -239,6 +239,13 @@ export async function login(params = new URLSearchParams()) {
 		icon: '/img/favicon.svg',
 		pattern: [300, 0, 300],
 	});
+
+	if (params.has('redirect')) {
+		const url = params.get('redirect');
+		if (/^https:\/\/([a-z]+\.)?kernvalley\.us\/*/.test(url)) {
+			location.href = url;
+		}
+	}
 }
 
 export async function register() {
@@ -281,6 +288,13 @@ export async function resetPassword(params = new URLSearchParams()) {
 	}
 }
 
-export async function logout() {
-	return cookieStore.delete({ name: 'kv-user', domain });
+export async function logout(params = new URLSearchParams()) {
+	await cookieStore.delete({ name: 'kv-user', domain });
+
+	if (params.has('redirect')) {
+		const url = params.get('redirect');
+		if (/^https:\/\/([a-z]+\.)?kernvalley\.us\/*/.test(url)) {
+			location.href = url;
+		}
+	}
 }
