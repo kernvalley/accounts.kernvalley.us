@@ -4,6 +4,14 @@ import isPwned from 'https://cdn.kernvalley.us/js/std-js/haveIBeenPwned.js';
 import md5 from 'https://cdn.kernvalley.us/js/std-js/md5.js';
 import { uuidv6 } from 'https://cdn.kernvalley.us/js/std-js/uuid.js';
 
+async function getToken() {
+	return uuidv6();
+}
+
+async function verifyToken({ token, email }) {
+	return typeof token === 'string' && typeof email === 'string' && token.length !== 0 && email.length !== 0;
+}
+
 export function gravatar(email, { s = 94, d = 'mm' } = {}) {
 	const url = new URL(`./${md5(email)}`, 'https://secure.gravatar.com/avatar/');
 	url.searchParams.set('s', s);
@@ -133,7 +141,7 @@ export async function changePassword() {
 		data: {
 			action: 'reset',
 			email,
-			token: uuidv6(),
+			token: await getToken(),
 		}
 	}).addEventListener('notificationclick', async ({ action, target }) => {
 		switch(action) {
@@ -184,7 +192,7 @@ export async function register() {
 }
 
 export async function resetPassword(params) {
-	if (params.has('token') && params.has('email')) {
+	if (await verifyToken({ email: params.get('email'), token: params.get('token')})) {
 		$('[name="token"]', document.forms.reset).value(params.get('token'));
 		$('[name="email"]', document.forms.reset).value(params.get('email'));
 		$('#reset-avatar-container > *').remove();
