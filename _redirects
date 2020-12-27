@@ -1,4 +1,4 @@
-/.well-known/change-password	/?action=changePassword		307!
-/login				/?action=login			307!
-/register			/?action=register		307!
-/change-password		/.well-known/change-password	307!
+/.well-known/change-password	/?action=changePassword		301!
+/login				/?action=login			301!
+/register			/?action=register		301!
+/change-password		/.well-known/change-password	301!
