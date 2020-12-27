@@ -18,7 +18,7 @@ async function setUserCookie({ uuid = uuidv6(), email }) {
 		value: btoa(JSON.stringify(data)),
 		domain,
 		secure: true,
-		sameSite: 'Strict',
+		sameSite: 'strict',
 		maxAge: 2 * YEARS,
 	});
 }
@@ -143,7 +143,7 @@ async function storeCredentials({ name = null, email: id, password }) {
 	}
 }
 
-export async function loginHandler(params = new URLSearchParams()) {
+export async function loginHandler(params = new URLSearchParams(location.search)) {
 	if (supportsPasswordCredentials) {
 		try {
 			const { email, password } = await getCredentials();
@@ -175,14 +175,14 @@ export async function registerHandler() {
 	return { name, email, password };
 }
 
-export async function changePasswordHandler(params = new URLSearchParams()) {
+export async function changePasswordHandler(params = new URLSearchParams(location.search)) {
 	const { email } = await formHandler(document.forms.changePassword, {
 		email: params.get('email'),
 	});
 	return { email };
 }
 
-export async function changePassword(params = new URLSearchParams()) {
+export async function changePassword(params = new URLSearchParams(location.search)) {
 	const { email } = await changePasswordHandler(params);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
 
@@ -226,7 +226,7 @@ export async function changePassword(params = new URLSearchParams()) {
 	});
 }
 
-export async function login(params = new URLSearchParams()) {
+export async function login(params = new URLSearchParams(location.search)) {
 	const { email } = await loginHandler(params);
 	setUserCookie({ email }).catch(console.error);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
@@ -263,7 +263,7 @@ export async function register() {
 	});
 }
 
-export async function resetPassword(params = new URLSearchParams()) {
+export async function resetPassword(params = new URLSearchParams(location.search)) {
 	if (await verifyToken({ email: params.get('email'), token: params.get('token')})) {
 		$('#reset-avatar-container > *').remove();
 		const avatar = await loadImage(gravatar(params.get('email')));
@@ -288,7 +288,7 @@ export async function resetPassword(params = new URLSearchParams()) {
 	}
 }
 
-export async function logout(params = new URLSearchParams()) {
+export async function logout(params = new URLSearchParams(location.search)) {
 	await cookieStore.delete({ name: 'kv-user', domain });
 
 	if (params.has('redirect')) {
