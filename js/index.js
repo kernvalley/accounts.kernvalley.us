@@ -12,7 +12,7 @@ import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
 import 'https://cdn.kernvalley.us/components/notification/html-notification.js';
 import { importGa, externalHandler, telHandler, mailtoHandler } from 'https://cdn.kernvalley.us/js/std-js/google-analytics.js';
 import { GA } from './consts.js';
-import{ login, register, changePassword, gravatar, resetPassword } from './functions.js';
+import{ login, register, changePassword, gravatar, resetPassword, dialogError } from './functions.js';
 
 $(document.documentElement).toggleClass(document.documentElement, {
 	'no-dialog': document.createElement('dialog') instanceof HTMLUnknownElement,
@@ -49,17 +49,17 @@ Promise.allSettled([
 		if (params.has('action')) {
 			switch(params.get('action')) {
 				case 'login':
-					await login().catch(console.error);
+					await login(params).catch(console.error);
 					history.replaceState(history.state, document.title, '/');
 					break;
 
 				case 'register':
-					await register().catch(console.error);
+					await register(params).catch(console.error);
 					history.replaceState(history.state, document.title, '/');
 					break;
 
 				case 'changePassword':
-					await changePassword().catch(console.error);
+					await changePassword(params).catch(console.error);
 					history.replaceState(history.state, document.title, '/');
 					break;
 
@@ -67,6 +67,10 @@ Promise.allSettled([
 					await resetPassword(params).catch(console.error);
 					history.replaceState(history.state, document.title, '/');
 					break;
+
+				default:
+					await dialogError(`Unsupported action: ${params.get('action')}`);
+					history.replaceState(history.state, document.title, '/');
 			}
 		}
 	});

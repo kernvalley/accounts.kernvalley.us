@@ -8,6 +8,25 @@ async function getToken() {
 	return uuidv6();
 }
 
+export async function dialogError(err, { duration = 10000, type = 'alert' } = {}) {
+	const dialog = document.createElement('dialog');
+	dialog.classList.add('status-box', type);
+	dialog.textContent = err instanceof Error ? err.message : err;
+
+	await new Promise(resolve => {
+		dialog.addEventListener('close', ({ target }) => {
+			target.remove();
+			resolve();
+		});
+
+		dialog.addEventListener('click', () => dialog.close());
+
+		document.body.append(dialog);
+		dialog.showModal();
+		setTimeout(() => dialog.close(), duration);
+	});
+}
+
 async function verifyToken({ token, email }) {
 	return typeof token === 'string' && typeof email === 'string' && token.length !== 0 && email.length !== 0;
 }
@@ -22,8 +41,25 @@ export function gravatar(email, { s = 94, d = 'mm' } = {}) {
 
 const  supportsPasswordCredentials = ('credentials' in navigator && 'PasswordCredential' in window);
 
-async function formHandler(form) {
+async function formHandler(form, params = null) {
+
+	if (! (form instanceof HTMLFormElement)) {
+		throw new DOMException('Expected form to be a <form>');
+	}
 	const dialog = form.closest('dialog');
+
+	if (typeof params === 'object') {
+		Object.entries(params).forEach(([name, value]) => {
+			if (typeof value === 'string') {
+				$(`[name="${name}"]`, form).each(input => {
+					input.value = value;
+					input.readOnly = true;
+					input.dispatchEvent(new Event('change'));
+					input.dispatchEvent(new Event('input'));
+				});
+			}
+		});
+	}
 
 	return new Promise((resolve, reject) => {
 		async function submitHandler(event) {
@@ -40,7 +76,12 @@ async function formHandler(form) {
 						$el.text('');
 						$el.hide();
 					});
-					$('.reset-link', this).unhide();
+					$('a.reset-link', this).each(link => {
+						const url = new URL(link.href);
+						url.searchParams.set('email', data.get('email'));
+						link.href = url.href;
+						link.hidden = false;
+					});
 					this.querySelector('[name="password"]').focus();
 				} else {
 					resolve(Object.fromEntries(data.entries()));
@@ -54,6 +95,7 @@ async function formHandler(form) {
 
 		function resetHandler() {
 			this.closest('dialog').close();
+			$('a.reset-link', this).hide();
 		}
 
 		form.addEventListener('submit', submitHandler);
@@ -86,7 +128,7 @@ async function storeCredentials({ name = null, email: id, password }) {
 	}
 }
 
-export async function loginHandler() {
+export async function loginHandler(params = new URLSearchParams()) {
 	if (supportsPasswordCredentials) {
 		try {
 			const { email, password } = await getCredentials();
@@ -98,12 +140,16 @@ export async function loginHandler() {
 			}
 		} catch(err) {
 			console.error(err);
-			const creds = await formHandler(document.forms.login);
+			const creds = await formHandler(document.forms.login, {
+				email: params.get('email'),
+			});
 			storeCredentials(creds).catch(console.error);
 			return creds;
 		}
 	} else {
-		return await formHandler(document.forms.login);
+		return await formHandler(document.forms.login, {
+			email: params.get('email'),
+		});
 	}
 }
 
@@ -114,13 +160,15 @@ export async function registerHandler() {
 	return { name, email, password };
 }
 
-export async function changePasswordHandler() {
-	const { email } = await formHandler(document.forms.changePassword);
+export async function changePasswordHandler(params = new URLSearchParams()) {
+	const { email } = await formHandler(document.forms.changePassword, {
+		email: params.get('email'),
+	});
 	return { email };
 }
 
-export async function changePassword() {
-	const { email } = await changePasswordHandler();
+export async function changePassword(params = new URLSearchParams()) {
+	const { email } = await changePasswordHandler(params);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
 
 	new HTMLNotificationElement('Password reset email not sent', {
@@ -163,8 +211,8 @@ export async function changePassword() {
 	});
 }
 
-export async function login() {
-	const { email } = await loginHandler();
+export async function login(params = new URLSearchParams()) {
+	const { email } = await loginHandler(params);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
 
 	// $('.login-btn, .register-btn').disable();
@@ -191,15 +239,16 @@ export async function register() {
 	});
 }
 
-export async function resetPassword(params) {
+export async function resetPassword(params = new URLSearchParams()) {
 	if (await verifyToken({ email: params.get('email'), token: params.get('token')})) {
-		$('[name="token"]', document.forms.reset).value(params.get('token'));
-		$('[name="email"]', document.forms.reset).value(params.get('email'));
 		$('#reset-avatar-container > *').remove();
 		const avatar = await loadImage(gravatar(params.get('email')));
 		avatar.classList.add('round');
 		document.getElementById('reset-avatar-container').append(avatar);
-		const { password, email, token } = await formHandler(document.forms.reset);
+		const { password, email, token } = await formHandler(document.forms.reset, {
+			email: params.get('email'),
+			token: params.get('token'),
+		});
 		const HTMLNotificationElement = await getCustomElement('html-notification');
 		console.info({ password, email, token });
 
@@ -211,14 +260,6 @@ export async function resetPassword(params) {
 		});
 
 	} else {
-		const dialog = document.createElement('dialog');
-		dialog.classList.add('status-box', 'alert');
-		dialog.textContent = 'Cannot reset password without a valid token';
-		dialog.addEventListener('close', ({ target }) => target.remove());
-		history.replaceState(history.state, document.title, '/');
-		document.body.append(dialog);
-		dialog.showModal();
-		await sleep(10000);
-		dialog.close();
+		dialogError('Cannot reset password without a valid token');
 	}
 }
