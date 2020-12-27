@@ -41,7 +41,7 @@ export function gravatar(email, { s = 94, d = 'mm' } = {}) {
 
 const  supportsPasswordCredentials = ('credentials' in navigator && 'PasswordCredential' in window);
 
-async function formHandler(form, params = null) {
+async function formHandler(form, params) {
 
 	if (! (form instanceof HTMLFormElement)) {
 		throw new DOMException('Expected form to be a <form>');
