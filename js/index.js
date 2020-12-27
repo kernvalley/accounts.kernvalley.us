@@ -89,7 +89,7 @@ Promise.allSettled([
 		}
 	});
 
-	$('#login-btn').click(login);
-	$('#register-btn').click(register);
-	$('#change-password-btn').click(changePassword);
+	$('#login-btn').click(() => login());
+	$('#register-btn').click(() => register());
+	$('#change-password-btn').click(() => changePassword());
 }).catch(console.error);
