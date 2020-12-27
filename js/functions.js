@@ -269,12 +269,11 @@ export async function resetPassword(params = new URLSearchParams(location.search
 		const avatar = await loadImage(gravatar(params.get('email')));
 		avatar.classList.add('round');
 		document.getElementById('reset-avatar-container').append(avatar);
-		const { password, email, token } = await formHandler(document.forms.reset, {
+		const { email } = await formHandler(document.forms.reset, {
 			email: params.get('email'),
 			token: params.get('token'),
 		});
 		const HTMLNotificationElement = await getCustomElement('html-notification');
-		console.info({ password, email, token });
 
 		new HTMLNotificationElement('No password was updated', {
 			body: 'This is just a demo for testing purposes',
@@ -282,6 +281,8 @@ export async function resetPassword(params = new URLSearchParams(location.search
 			icon: '/img/favicon.svg',
 			pattern: [300, 0, 300],
 		});
+
+		await login(new URLSearchParams({ email }));
 
 	} else {
 		dialogError('Cannot reset password without a valid token');
