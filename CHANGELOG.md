@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- [#7 Change password redirect does not update URL](https://github.com/kernvalley/accounts.kernvalley.us/issues/7)
+
 ## [v1.0.1] - 2020-12-27
 
 ### Added
