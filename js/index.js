@@ -5,13 +5,14 @@ import 'https://cdn.kernvalley.us/components/share-button.js';
 import 'https://cdn.kernvalley.us/components/current-year.js';
 import 'https://cdn.kernvalley.us/components/github/user.js';
 import 'https://cdn.kernvalley.us/components/app/list-button.js';
+import { uuidv6 } from 'https://cdn.kernvalley.us/js/std-js/uuid.js';
 import { $, ready } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 import { init } from 'https://cdn.kernvalley.us/js/std-js/data-handlers.js';
 import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
-import { HTMLNotificationElement } from 'https://cdn.kernvalley.us/components/notification/html-notification.js';
+import 'https://cdn.kernvalley.us/components/notification/html-notification.js';
 import { importGa, externalHandler, telHandler, mailtoHandler } from 'https://cdn.kernvalley.us/js/std-js/google-analytics.js';
 import { GA } from './consts.js';
-import{ loginHandler, registerHandler, gravatar } from './functions.js';
+import{ login, register, changePassword, gravatar, resetPassword } from './functions.js';
 
 $(document.documentElement).toggleClass(document.documentElement, {
 	'no-dialog': document.createElement('dialog') instanceof HTMLUnknownElement,
@@ -41,6 +42,35 @@ if (typeof GA === 'string') {
 Promise.allSettled([
 	init(),
 ]).then(() => {
+	if (window.opener) {
+		postMessage({ uuid: uuidv6() });
+	}
+	Promise.resolve(new URLSearchParams(location.search)).then(async params => {
+		if (params.has('action')) {
+			switch(params.get('action')) {
+				case 'login':
+					await login().catch(console.error);
+					history.replaceState(history.state, document.title, '/');
+					break;
+
+				case 'register':
+					await register().catch(console.error);
+					history.replaceState(history.state, document.title, '/');
+					break;
+
+				case 'changePassword':
+					await changePassword().catch(console.error);
+					history.replaceState(history.state, document.title, '/');
+					break;
+
+				case 'reset':
+					await resetPassword(params).catch(console.error);
+					history.replaceState(history.state, document.title, '/');
+					break;
+			}
+		}
+	});
+
 	$('#login-email').debounce('input', async ({ target }) => {
 		if (target.validity.valid && target.value !== '') {
 			const avatar = await loadImage(gravatar(target.value, { s: 150 }));
@@ -55,22 +85,7 @@ Promise.allSettled([
 		}
 	});
 
-	$('.login-btn').click(() => loginHandler().then(({ email }) => {
-		$('.login-btn, .register-btn').disable();
-		new HTMLNotificationElement('Welcome back', {
-			body: 'This is just a demo. No account really exists',
-			image: gravatar(email),
-			icon: '/img/favicon.svg',
-			pattern: [300, 0, 300],
-		});
-	}, console.error));
-	$('.register-btn').click(() => registerHandler().then(({ email, name }) => {
-		$('.login-btn, .register-btn').disable();
-		new HTMLNotificationElement(`Welcome, ${name}`, {
-			body: 'No account was created, as this is just a demo for now',
-			image: gravatar(email),
-			icon: '/img/favicon.svg',
-			pattern: [300, 0, 300],
-		});
-	}, console.error));
+	$('#login-btn').click(login);
+	$('#register-btn').click(register);
+	$('#change-password-btn').click(changePassword);
 }).catch(console.error);

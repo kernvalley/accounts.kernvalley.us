@@ -1,6 +1,6 @@
 {
   "name": "kernvalley-accounts",
-  "version": "1.0.8",
+  "version": "1.0.1",
   "private": true,
   "description": "Account management for KernValley.US sites",
   "config": {
