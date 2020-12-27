@@ -3,9 +3,24 @@ import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
 import isPwned from 'https://cdn.kernvalley.us/js/std-js/haveIBeenPwned.js';
 import md5 from 'https://cdn.kernvalley.us/js/std-js/md5.js';
 import { uuidv6 } from 'https://cdn.kernvalley.us/js/std-js/uuid.js';
+import { domain } from './consts.js';
+import { YEARS } from 'https://cdn.kernvalley.us/js/std-js/timeIntervals.js';
 
 async function getToken() {
 	return uuidv6();
+}
+
+async function setUserCookie({ uuid = uuidv6(), email }) {
+	const data = { uuid, email, gravatar: md5(email), date: Date.now(), expires: Date.now() + 2 * YEARS };
+	data.hash = md5(JSON.stringify(data));
+	return cookieStore.set({
+		name: 'kv-user',
+		value: btoa(JSON.stringify(data)),
+		domain,
+		secure: true,
+		sameSite: 'Strict',
+		maxAge: 2 * YEARS,
+	});
 }
 
 export async function dialogError(err, { duration = 10000, type = 'alert' } = {}) {
@@ -36,13 +51,11 @@ export function gravatar(email, { s = 94, d = 'mm' } = {}) {
 	url.searchParams.set('s', s);
 	url.searchParams.set('d', d);
 	return url.href;
-	// https://secure.gravatar.com/avatar/43578597e449298f5488c2407c8a8ae5?s=256&d=mm
 }
 
 const  supportsPasswordCredentials = ('credentials' in navigator && 'PasswordCredential' in window);
 
 async function formHandler(form, params) {
-
 	if (! (form instanceof HTMLFormElement)) {
 		throw new DOMException('Expected form to be a <form>');
 	}
@@ -157,8 +170,8 @@ export async function loginHandler(params = new URLSearchParams()) {
 
 export async function registerHandler() {
 	const { name, email, password } = await formHandler(document.forms.register);
-
 	storeCredentials({ name, email, password }).catch(console.error);
+
 	return { name, email, password };
 }
 
@@ -215,6 +228,7 @@ export async function changePassword(params = new URLSearchParams()) {
 
 export async function login(params = new URLSearchParams()) {
 	const { email } = await loginHandler(params);
+	setUserCookie({ email }).catch(console.error);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
 
 	// $('.login-btn, .register-btn').disable();
@@ -225,10 +239,18 @@ export async function login(params = new URLSearchParams()) {
 		icon: '/img/favicon.svg',
 		pattern: [300, 0, 300],
 	});
+
+	if (params.has('redirect')) {
+		const url = params.get('redirect');
+		if (/^https:\/\/([a-z]+\.)?kernvalley\.us\/*/.test(url)) {
+			location.href = url;
+		}
+	}
 }
 
 export async function register() {
 	const { email, name } = await registerHandler();
+	setUserCookie({ email }).catch(console.error);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
 
 	// $('.login-btn, .register-btn').disable();
@@ -263,5 +285,16 @@ export async function resetPassword(params = new URLSearchParams()) {
 
 	} else {
 		dialogError('Cannot reset password without a valid token');
+	}
+}
+
+export async function logout(params = new URLSearchParams()) {
+	await cookieStore.delete({ name: 'kv-user', domain });
+
+	if (params.has('redirect')) {
+		const url = params.get('redirect');
+		if (/^https:\/\/([a-z]+\.)?kernvalley\.us\/*/.test(url)) {
+			location.href = url;
+		}
 	}
 }

@@ -12,7 +12,7 @@ import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
 import 'https://cdn.kernvalley.us/components/notification/html-notification.js';
 import { importGa, externalHandler, telHandler, mailtoHandler } from 'https://cdn.kernvalley.us/js/std-js/google-analytics.js';
 import { GA } from './consts.js';
-import{ login, register, changePassword, gravatar, resetPassword, dialogError } from './functions.js';
+import{ login, logout, register, changePassword, gravatar, resetPassword, dialogError } from './functions.js';
 
 $(document.documentElement).toggleClass(document.documentElement, {
 	'no-dialog': document.createElement('dialog') instanceof HTMLUnknownElement,
@@ -55,6 +55,11 @@ Promise.allSettled([
 
 				case 'register':
 					await register(params).catch(console.error);
+					history.replaceState(history.state, document.title, '/');
+					break;
+
+				case 'logout':
+					await logout(params).catch(console.error);
 					history.replaceState(history.state, document.title, '/');
 					break;
 
