@@ -76,20 +76,22 @@ async function formHandler(form, params) {
 						$el.text('');
 						$el.hide();
 					});
+
 					$('a.reset-link', this).each(link => {
 						const url = new URL(link.href);
 						url.searchParams.set('email', data.get('email'));
 						link.href = url.href;
 						link.hidden = false;
 					});
+
 					this.querySelector('[name="password"]').focus();
 				} else {
 					resolve(Object.fromEntries(data.entries()));
-					this.closest('dialog').close();
+					setTimeout(() => this.closest('dialog').close(), 100);
 				}
 			} else {
 				resolve(Object.fromEntries(data.entries()));
-				this.closest('dialog').close();
+				setTimeout(() => this.closest('dialog').close(), 100);
 			}
 		}
 
