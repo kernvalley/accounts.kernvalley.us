@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Pass around search params on redirects
+- Autofill email for change password form
+- Form handling function can now set input values and `readonly` state
+
 ### Fixed
 - [#7 Change password redirect does not update URL](https://github.com/kernvalley/accounts.kernvalley.us/issues/7)
 

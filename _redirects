@@ -1,4 +1,7 @@
-/.well-known/change-password	/?action=changePassword		301!
-/login				/?action=login			301!
-/register			/?action=register		301!
-/change-password		/.well-known/change-password	301!
+/.well-known/change-password email=:email	/?action=changePassword&email=:email		301!
+/.well-known/change-password			/?action=changePassword				301!
+/login email=:email				/?action=login&email=:email			301!
+/login						/?action=login					301!
+/register					/?action=register				301!
+/change-password email=:email			/.well-known/change-password?email=:email	301!
+/change-password				/.well-known/change-password			301!
