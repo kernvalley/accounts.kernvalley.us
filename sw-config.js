@@ -1,7 +1,7 @@
 /* eslint no-unused-vars: 0 */
 /* eslint-env serviceworker */
 const config = {
-	version: '1.0.1',
+	version: '1.0.2',
 	fresh: [
 		'/',
 		'https://apps.kernvalley.us/apps.json',

@@ -1,45 +1,29 @@
-import { $, sleep, getCustomElement, openWindow } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
+import { $, sleep, getCustomElement, openWindow, statusDialog } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
 import isPwned from 'https://cdn.kernvalley.us/js/std-js/haveIBeenPwned.js';
 import md5 from 'https://cdn.kernvalley.us/js/std-js/md5.js';
 import { uuidv6 } from 'https://cdn.kernvalley.us/js/std-js/uuid.js';
-import { domain } from './consts.js';
-import { YEARS } from 'https://cdn.kernvalley.us/js/std-js/timeIntervals.js';
+import { cookie, site } from './consts.js';
 
 async function getToken() {
 	return uuidv6();
 }
 
-async function setUserCookie({ uuid = uuidv6(), email }) {
-	const data = { uuid, email, gravatar: md5(email), date: Date.now(), expires: Date.now() + 2 * YEARS };
-	data.hash = md5(JSON.stringify(data));
-	return cookieStore.set({
-		name: 'kv-user',
-		value: btoa(JSON.stringify(data)),
-		domain,
-		secure: true,
-		sameSite: 'strict',
-		maxAge: 2 * YEARS,
-	});
+function redirect(params = new URLSearchParams) {
+	if (params.has('redirect')) {
+		const url = new URL(params.get('redirect'));
+
+		if (url.hostname.endsWith('.kernvalley.us') || url.hostname === 'kernvalley.us') {
+			location.href = url;
+		}
+	}
 }
 
-export async function dialogError(err, { duration = 10000, type = 'alert' } = {}) {
-	const dialog = document.createElement('dialog');
-	dialog.classList.add('status-box', type);
-	dialog.textContent = err instanceof Error ? err.message : err;
-
-	await new Promise(resolve => {
-		dialog.addEventListener('close', ({ target }) => {
-			target.remove();
-			resolve();
-		});
-
-		dialog.addEventListener('click', () => dialog.close());
-
-		document.body.append(dialog);
-		dialog.showModal();
-		setTimeout(() => dialog.close(), duration);
-	});
+async function setUserCookie({ uuid = uuidv6(), email }) {
+	const data = { uuid, email, gravatar: md5(email), date: Date.now(), expires: Date.now() + cookie.maxAge };
+	data.hash = md5(JSON.stringify(data));
+	const value = btoa(JSON.stringify(data));
+	return cookieStore.set({ value, ...cookie });
 }
 
 async function verifyToken({ token, email }) {
@@ -240,12 +224,7 @@ export async function login(params = new URLSearchParams(location.search)) {
 		pattern: [300, 0, 300],
 	});
 
-	if (params.has('redirect')) {
-		const url = params.get('redirect');
-		if (/^https:\/\/([a-z]+\.)?kernvalley\.us\/*/.test(url)) {
-			location.href = url;
-		}
-	}
+	redirect(params);
 }
 
 export async function register() {
@@ -282,20 +261,16 @@ export async function resetPassword(params = new URLSearchParams(location.search
 			pattern: [300, 0, 300],
 		});
 
+		document.title = `Login | ${site.title}`;
+
 		await login(new URLSearchParams({ email }));
 
 	} else {
-		dialogError('Cannot reset password without a valid token');
+		statusDialog('Cannot reset password without a valid token');
 	}
 }
 
 export async function logout(params = new URLSearchParams(location.search)) {
-	await cookieStore.delete({ name: 'kv-user', domain });
-
-	if (params.has('redirect')) {
-		const url = params.get('redirect');
-		if (/^https:\/\/([a-z]+\.)?kernvalley\.us\/*/.test(url)) {
-			location.href = url;
-		}
-	}
+	await cookieStore.delete({ name: cookie.name, domain: cookie.domain });
+	redirect(params);
 }

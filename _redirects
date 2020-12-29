@@ -1,6 +1,7 @@
 /.well-known/change-password email=:email	/?action=changePassword&email=:email		301!
 /.well-known/change-password			/?action=changePassword				301!
 /login email=:email redirect=:url		/?action=login&email=:email&redirect=:url	301!
+/login redirect=:url				/?action=login&redirect=:url			301!
 /login email=:email				/?action=login&email=:email			301!
 /login						/?action=login					301!
 /logout	redirect=:url				/?action=logout&redirect=:url			301!
