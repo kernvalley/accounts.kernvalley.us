@@ -19,3 +19,6 @@ mail,img/octicons/mail.svg
 sign-in,img/octicons/sign-in.svg
 dialog-warning,img/adwaita-icons/dialog-wanring.svg
 contact-new,img/adwaita-icons/actions/contact-new.svg
+web-browser,img/adwaita-icons/apps/web-browser.svg
+address-book,img/adwaita-icons/mimetypes/x-office-address-book.svg
+eye,img/octicons/eye.svg

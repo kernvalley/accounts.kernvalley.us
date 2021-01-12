@@ -9,3 +9,4 @@
 /register					/?action=register				301!
 /change-password email=:email			/.well-known/change-password?email=:email	301!
 /change-password				/.well-known/change-password			301!
+/contact					https://contact.kernvalley.us			301!
