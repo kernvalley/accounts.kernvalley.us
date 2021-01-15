@@ -5,6 +5,8 @@ import 'https://cdn.kernvalley.us/components/share-button.js';
 import 'https://cdn.kernvalley.us/components/current-year.js';
 import 'https://cdn.kernvalley.us/components/github/user.js';
 import 'https://cdn.kernvalley.us/components/app/list-button.js';
+// import 'https://cdn.kernvalley.us/components/pwa/install.js';
+// import 'https://cdn.kernvalley.us/components/app/stores.js';
 import { $, ready, statusDialog } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 import { init } from 'https://cdn.kernvalley.us/js/std-js/data-handlers.js';
 import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';

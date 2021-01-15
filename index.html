@@ -57,17 +57,18 @@
 	<body id="top" class="grid font-main background-primary color-default overflow-x-hidden">
 		<header id="header" class="background-cover background-fixed"></header>
 		<nav id="nav" class="sticky top shadow background-accent color-alt z-3 flex row no-wrap overflow-x-auto">
-			<button type="button" is="app-list" id="app-menu" source="krv-accounts" title="Show KRV Apps Menu" hidden="">
+			<button type="button" is="app-list" id="app-menu" class="btn nav-btn" source="krv-accounts" title="Show KRV Apps Menu" hidden="">
 				<svg class="icon" width="22" height="22" fill="currentColor" role="img" aria-hidden="true">
 					<use xlink:href="/img/icons.svg#apps"></use>
 				</svg>
 			</button>
-			<!-- <button is="pwa-install" id="install-btn" src="/service-worker.js" scope="/" title="Install Web App" reloadonupdate="" hidden=""> -->
-			<!-- 	<svg class="icon" height="22" width="22" fill="currentColor" role="img" aria-hidden="true"> -->
-			<!-- 		<use xlink:href="/img/icons.svg#system-software-install"></use> -->
-			<!-- 	</svg> -->
-			<!-- 	<span class="mobile-hidden">Install</span> -->
-			<!-- </button> -->
+			<span class="grow-4"></span>
+			<button is="pwa-install" id="install-btn" class="btn nav-btn" src="/service-worker.js" scope="/" title="Install Web App" reloadonupdate="" hidden="">
+				<svg class="icon" height="22" width="22" fill="currentColor" role="img" aria-hidden="true">
+					<use xlink:href="/img/icons.svg#system-software-install"></use>
+				</svg>
+				<span class="mobile-hidden">Install</span>
+			</button>
 		</nav>
 		<main id="main" class="center">
 			<div class="status-box warn inline-block">Currently, no accounts can be created and no credentials will be submitted.<br />This site is still under construction and will soon be used to sign in to KernValley.US apps.</div>
@@ -143,6 +144,10 @@
 								<use xlink:href="/img/icons.svg#twitter"></use>
 							</svg>
 							<span>Twitter</span>
+						</a>
+						<a class="block" href="https://instagram.com/kernvalley_us/" target="_blank" rel="noopener noreferrer external" itemprop="sameAs">
+							<img src="https://cdn.kernvalley.us/img/logos/instagram.svg" class="social-icon" loading="lazy" decoding="async" crossorigin="anonymous" referrerpolicy="no-referrer" alt="" width="20" height="20" />
+							<span>Instagram</span>
 						</a>
 						<a class="block" href="https://www.linkedin.com/company/18644791/" target="_blank" rel="external noopener" itemprop="sameAs">
 							<svg class="current-color icon social-icon" role="img" aria-hidden="true">

@@ -9,6 +9,22 @@ body.grid {
 	row-gap: 2em;
 }
 
+#nav {
+	grid-area: nav;
+}
+
+#main {
+	grid-area: main;
+}
+
+#sidebar {
+	grid-area: sidebar;
+}
+
+#footer {
+	grid-area: footer;
+}
+
 button.btn[is="share-button"] {
 	bottom: 1rem;
 	right: 1rem;
