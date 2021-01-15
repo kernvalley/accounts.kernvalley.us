@@ -47,7 +47,10 @@
     "sizes": "160x79",
     "type": "image/jpeg"
   }],
-  "shortcuts": [],
+  "shortcuts": [{
+    "platform": "webapp",
+    "url": "https://accounts.kernvalley.us/manifest.json"
+  }],
   "share_target": {},
   "categories": [
     "utility"
