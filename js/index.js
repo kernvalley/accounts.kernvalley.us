@@ -15,7 +15,7 @@ import { importGa, externalHandler, telHandler, mailtoHandler } from 'https://cd
 import { GA, site } from './consts.js';
 import{ login, logout, register, changePassword, gravatar, resetPassword } from './functions.js';
 
-$(document.documentElement).toggleClass(document.documentElement, {
+$(document.documentElement).toggleClass({
 	'no-dialog': document.createElement('dialog') instanceof HTMLUnknownElement,
 	'no-details': document.createElement('details') instanceof HTMLUnknownElement,
 	'js': true,
