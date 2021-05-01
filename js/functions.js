@@ -1,9 +1,21 @@
 import { $, sleep, getCustomElement, openWindow, statusDialog } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
-import isPwned from 'https://cdn.kernvalley.us/js/std-js/haveIBeenPwned.js';
+import { pwned } from 'https://cdn.kernvalley.us/js/std-js/pwned.js';
 import md5 from 'https://cdn.kernvalley.us/js/std-js/md5.js';
 import { uuidv6 } from 'https://cdn.kernvalley.us/js/std-js/uuid.js';
+import { getDeferred } from 'https://cdn.kernvalley.us/js/std-js/promises.js';
 import { cookie, site } from './consts.js';
+
+export async function getUser() {
+	const { resolve, promise } = getDeferred();
+	firebase.auth().onAuthStateChanged(resolve);
+	return await promise;
+}
+
+export async function isSignedIn() {
+	const user = await getUser();
+	return user == null;
+}
 
 async function getToken() {
 	return uuidv6();
@@ -64,9 +76,7 @@ async function formHandler(form, params) {
 			const data = new FormData(this);
 
 			if (data.has('password')) {
-				const pwned = await isPwned(data.get('password'));
-
-				if (pwned !== 0) {
+				if (await pwned(data.get('password'))) {
 					$('.error-message', this).text('That password may not be used as it was found in a known password leak. Please update your password wherever you have used it and enter a different password.').then(async $el => {
 						$el.unhide();
 						await sleep(30000);
@@ -112,7 +122,7 @@ async function formHandler(form, params) {
 
 async function getCredentials() {
 	if (supportsPasswordCredentials) {
-		const { id: email, password, name } = await navigator.credentials.get({ password: true });
+		const { id: email, password, name } = await navigator.credentials.get({ password: true, mediation: 'required' });
 		return { email, password, name };
 	} else {
 		return { email: null, password: null, name: null };
@@ -154,6 +164,8 @@ export async function loginHandler(params = new URLSearchParams(location.search)
 
 export async function registerHandler() {
 	const { name, email, password } = await formHandler(document.forms.register);
+	const user = firebase.auth().createUserWithEmailAndPassword(email, password);
+	console.log(user);
 	storeCredentials({ name, email, password }).catch(console.error);
 
 	return { name, email, password };
@@ -211,7 +223,9 @@ export async function changePassword(params = new URLSearchParams(location.searc
 }
 
 export async function login(params = new URLSearchParams(location.search)) {
-	const { email } = await loginHandler(params);
+	const { email, password } = await loginHandler(params);
+	const user = await firebase.auth().signInWithEmailAndPassword(email, password);
+	console.log(user);
 	setUserCookie({ email }).catch(console.error);
 	const HTMLNotificationElement = await getCustomElement('html-notification');
 
@@ -271,6 +285,7 @@ export async function resetPassword(params = new URLSearchParams(location.search
 }
 
 export async function logout(params = new URLSearchParams(location.search)) {
+	await firebase.auth().signOut();
 	await cookieStore.delete({ name: cookie.name, domain: cookie.domain });
 	redirect(params);
 }

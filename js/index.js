@@ -5,8 +5,8 @@ import 'https://cdn.kernvalley.us/components/share-button.js';
 import 'https://cdn.kernvalley.us/components/current-year.js';
 import 'https://cdn.kernvalley.us/components/github/user.js';
 import 'https://cdn.kernvalley.us/components/app/list-button.js';
-// import 'https://cdn.kernvalley.us/components/pwa/install.js';
-// import 'https://cdn.kernvalley.us/components/app/stores.js';
+import 'https://cdn.kernvalley.us/components/install/prompt.js';
+import 'https://cdn.kernvalley.us/components/app/stores.js';
 import { $, ready, statusDialog } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 import { init } from 'https://cdn.kernvalley.us/js/std-js/data-handlers.js';
 import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
@@ -14,6 +14,7 @@ import 'https://cdn.kernvalley.us/components/notification/html-notification.js';
 import { importGa, externalHandler, telHandler, mailtoHandler } from 'https://cdn.kernvalley.us/js/std-js/google-analytics.js';
 import { GA, site } from './consts.js';
 import{ login, logout, register, changePassword, gravatar, resetPassword } from './functions.js';
+import { firebase as credentials } from './credentials.js';
 
 $(document.documentElement).toggleClass({
 	'no-dialog': document.createElement('dialog') instanceof HTMLUnknownElement,
@@ -40,9 +41,22 @@ if (typeof GA === 'string') {
 	});
 }
 
-Promise.allSettled([
+Promise.all([
 	init(),
 ]).then(() => {
+	firebase.initializeApp(credentials);
+
+	firebase.auth().onAuthStateChanged(user => {
+		console.log({ user });
+		if (user) {
+			$('.when-loggedin').unhide();
+			$('.when-loggedout').hide();
+		} else {
+			$('.when-loggedin').hide();
+			$('.when-loggedout').unhide();
+		}
+	});
+
 	Promise.resolve(new URLSearchParams(location.search)).then(async params => {
 		if (params.has('action')) {
 			switch(params.get('action')) {
@@ -108,6 +122,11 @@ Promise.allSettled([
 	$('#register-btn').click(async () => {
 		document.title = `Register | ${site.title}`;
 		await register().finally(() => document.title = site.title);
+	});
+
+	$('#logout-btn').click(async () => {
+		document.title = site.title;
+		await logout();
 	});
 
 	$('#change-password-btn').click(async () => {
