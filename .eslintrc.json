@@ -44,6 +44,7 @@
       "cookieStore": "readonly",
       "showOpenFilePicker": "readonly",
       "showSaveFilePicker": "readonly",
-      "PasswordCredential": "readonly"
+      "PasswordCredential": "readonly",
+      "firebase": "readonly"
     }
 }

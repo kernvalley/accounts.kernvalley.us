@@ -10,6 +10,8 @@ const config = {
 		'/js/index.min.js',
 		'/css/index.min.css',
 		'/img/icons.svg',
+		'https://www.gstatic.com/firebasejs/8.4.3/firebase-app.js',
+		'https://www.gstatic.com/firebasejs/8.4.3/firebase-auth.js',
 		'https://cdn.kernvalley.us/components/toast-message.html',
 		'https://cdn.kernvalley.us/components/toast-message.css',
 		'https://cdn.kernvalley.us/components/github/user.html',
@@ -22,5 +24,9 @@ const config = {
 		/https:\/\/i\.imgur\.com\/*/,
 		/https:\/\/api\.github\.com\/users\/*/,
 		/https:\/\/*\.githubusercontent.com\/u\/*/,
+		/\.(png|jpg|gif|svg|webp)$/,
+	],
+	allowedFresh: [
+		/\.(css|js|html|json)$/,
 	]
 };

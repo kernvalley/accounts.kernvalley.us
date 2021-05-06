@@ -2,7 +2,7 @@
   X-Content-Type-Options: nosniff
   X-Frame-Options: DENY
   X-XSS-Protection: 1; mode=block
-  Content-Security-Policy: default-src 'self'; img-src 'self' cdn.kernvalley.us/img/ *.githubusercontent.com/u/ i.imgur.com/ secure.gravatar.com/avatar/; script-src 'self' cdn.kernvalley.us/ cdn.kernvalley.us/ unpkg.com/@webcomponents/ www.google-analytics.com www.googletagmanager.com cdn.polyfill.io/v3/polyfill.min.js; style-src 'self' cdn.kernvalley.us; connect-src 'self' cdn.kernvalley.us apps.kernvalley.us/apps.json api.github.com/users/ api.pwnedpasswords.com/range/  www.google-analytics.com/ www.googletagmanager.com/gtag/; font-src cdn.kernvalley.us; media-src 'none'; frame-src 'none'; form-action 'self'; manifest-src 'self'; worker-src 'self'; reflected-xss block; upgrade-insecure-requests; block-all-mixed-content;
+  Content-Security-Policy: default-src 'self'; img-src 'self' cdn.kernvalley.us/img/ *.githubusercontent.com/u/ i.imgur.com/ secure.gravatar.com/avatar/; script-src 'self' cdn.kernvalley.us/ www.gstatic.com/firebasejs/ unpkg.com/@webcomponents/ www.google-analytics.com www.googletagmanager.com cdn.polyfill.io/v3/polyfill.min.js; style-src 'self' cdn.kernvalley.us; connect-src 'self' cdn.kernvalley.us apps.kernvalley.us/apps.json api.github.com/users/ api.pwnedpasswords.com/range/  www.google-analytics.com/ www.googletagmanager.com/gtag/ www.googleapis.com/identitytoolkit/v3/; font-src cdn.kernvalley.us; media-src 'none'; frame-src 'none'; form-action 'self'; manifest-src 'self'; worker-src 'self'; reflected-xss block; upgrade-insecure-requests; block-all-mixed-content;
 
 /:placeholder/
   X-Content-Type-Options: nosniff

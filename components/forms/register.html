@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<form name="register" id="registration-form" action="/register/" method="POST">
+			<fieldset class="no-border">
+				<legend>Register for a KernValley.US Account</legend>
+				<div class="form-group">
+					<label for="register-name" class="input-label required">
+						<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+							<use xlink:href="/img/icons.svg#avatar-default"></use>
+						</svg>
+						<span>Name</span>
+					</label>
+					<input type="text" name="name" id="register-name" class="input" autocomplete="name" placeholder="First &amp; Last Name" required="" />
+				</div>
+				<div class="form-group">
+					<label for="register-email" class="input-label">
+						<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+							<use xlink:href="/img/icons.svg#call-start"></use>
+						</svg>
+						<span>Phone</span>
+					</label>
+					<input type="tel" name="telephone" id="register-phone" class="input" autocomplete="tel" placeholder="555-555-5555" />
+				</div>
+				<div class="form-group">
+					<label for="register-email" class="input-label required">
+						<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+							<use xlink:href="/img/icons.svg#mail"></use>
+						</svg>
+						<span>Email</span>
+					</label>
+					<input type="email" name="email" id="register-email" class="input" autocomplete="email" placeholder="user@example.com" required="" />
+				</div>
+				<div class="form-group">
+					<label for="register-password" class="input-label required">
+						<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+							<use xlink:href="/img/icons.svg#dialog-password"></use>
+						</svg>
+						<span>Password</span>
+					</label>
+					<input type="password" name="password" id="register-password" class="input" autocomplete="new-password" placeholder="********" minlength="8" maxlength="60" required="" />
+				</div>
+				<div class="center">
+					<div id="register-error" class="status-box alert error-message inline-block" hidden=""></div>
+				</div>
+			</fieldset>
+			<div class="btns flex row no-wrap space-evenly">
+				<button type="submit" class="btn btn-accept grow-1" title="Sign In">
+					<svg class="icon" fill="currentColor" width="18" height="18">
+						<use xlink:href="/img/icons.svg#contact-new"></use>
+					</svg>
+					<span>Register</span>
+				</button>
+				<button type="button" class="btn btn-primary grow-1" title="Register" data-close="#registration-dialog" data-show-modal="#login-dialog" hidden="">
+					<svg class="icon" fill="currentColor" width="18" height="18">
+						<use xlink:href="/img/icons.svg#avatar-default"></use>
+					</svg>
+					<span>Sign In</span>
+				</button>
+				<button type="reset" class="btn btn-reject grow-1" title="Cancel" data-close="#registration-dialog">
+					<svg class="icon" fill="currentColor" width="18" height="18">
+						<use xlink:href="/img/icons.svg#x"></use>
+					</svg>
+					<span>Cancel</span>
+				</button>
+			</div>
+		</form>
+	</body>
+</html>

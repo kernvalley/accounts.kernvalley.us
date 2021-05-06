@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+	</head>
+	<body>
+		<form name="login" id="login-form" action="/login/" method="POST">
+			<fieldset class="no-border">
+				<legend>Sign In to your KernValley.US Account</legend>
+				<div id="avatar-container" class="center">
+					<svg id="default-avatar" fill="currentColor" width="150" height="150" class="round" role="img" aria-hidden="true">
+						<use xlink:href="/img/icons.svg#avatar-default"></use>
+					</svg>
+				</div>
+				<div class="form-group">
+					<label for="login-email" class="input-label required">
+						<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+							<use xlink:href="/img/icons.svg#mail"></use>
+						</svg>
+						<span>Email</span>
+					</label>
+					<input type="email" name="email" id="login-email" class="input" autocomplete="email" placeholder="user@example.com" required="" />
+				</div>
+				<div class="form-group">
+					<label for="login-password" class="input-label required">
+						<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+							<use xlink:href="/img/icons.svg#dialog-password"></use>
+						</svg>
+						<span>Password</span>
+					</label>
+					<input type="password" name="password" id="login-password" class="input" autocomplete="current-password" placeholder="********" minlength="8" maxlength="60" required="" />
+				</div>
+			</fieldset>
+			<div class="btns flex row no-wrap space-evenly">
+				<button type="submit" class="btn btn-accept grow-1" title="Sign In">
+					<svg class="icon" fill="currentColor" width="18" height="18">
+						<use xlink:href="/img/icons.svg#sign-in"></use>
+					</svg>
+					<span>Sign-In</span>
+				</button>
+				<button type="button" class="btn btn-primary grow-1" title="Register" data-close="#login-dialog" data-show-modal="#registration-dialog" hidden="">
+					<svg class="icon" fill="currentColor" width="18" height="18">
+						<use xlink:href="/img/icons.svg#avatar-default"></use>
+					</svg>
+					<span>Register</span>
+				</button>
+				<button type="reset" class="btn btn-reject grow-1" title="Cancel" data-close="#login-dialog">
+					<svg class="icon" fill="currentColor" width="18" height="18">
+						<use xlink:href="/img/icons.svg#x"></use>
+					</svg>
+					<span>Cancel</span>
+				</button>
+			</div>
+			<div class="center">
+				<div id="login-error" class="status-box alert error-message inline-block" hidden=""></div>
+			</div>
+			<div class="center">
+				<a href="/.well-known/change-password" title="Change Password" class="btn btn-outline reset-link" hidden="" data-close="#login-dialog">
+					<svg class="icon" fill="currentColor" width="20" height="20" role="img" aria-hidden="true">
+						<use xlink:href="/img/icons.svg#dialog-password"></use>
+					</svg>
+					<span>Change Password</span>
+				</a>
+			</div>
+		</form>
+	</body>
+</html>
