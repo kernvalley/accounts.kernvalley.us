@@ -1,4 +1,4 @@
-import { YEARS } from 'https://cdn.kernvalley.us/js/std-js/timeIntervals.js';
+import { YEARS } from 'https://cdn.kernvalley.us/js/std-js/date-consts.js';
 export const env = (location.hostname === 'localhost' || location.hostname.endsWith('.netlify.live'))
 	? 'development'
 	: 'production';

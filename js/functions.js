@@ -1,12 +1,11 @@
 import { $, sleep, getCustomElement, openWindow, statusDialog } from 'https://cdn.kernvalley.us/js/std-js/functions.js';
 import { loadImage } from 'https://cdn.kernvalley.us/js/std-js/loader.js';
-import isPwned from 'https://cdn.kernvalley.us/js/std-js/haveIBeenPwned.js';
+import { pwned } from 'https://cdn.kernvalley.us/js/std-js/pwned.js';
 import md5 from 'https://cdn.kernvalley.us/js/std-js/md5.js';
-import { uuidv6 } from 'https://cdn.kernvalley.us/js/std-js/uuid.js';
 import { cookie, site } from './consts.js';
 
 async function getToken() {
-	return uuidv6();
+	return crypto.randomUUID();
 }
 
 function redirect(params = new URLSearchParams) {
@@ -19,7 +18,7 @@ function redirect(params = new URLSearchParams) {
 	}
 }
 
-async function setUserCookie({ uuid = uuidv6(), email }) {
+async function setUserCookie({ uuid = crypto.randomUUID(), email }) {
 	const data = { uuid, email, gravatar: md5(email), date: Date.now(), expires: Date.now() + cookie.maxAge };
 	data.hash = md5(JSON.stringify(data));
 	const value = btoa(JSON.stringify(data));
@@ -64,9 +63,7 @@ async function formHandler(form, params) {
 			const data = new FormData(this);
 
 			if (data.has('password')) {
-				const pwned = await isPwned(data.get('password'));
-
-				if (pwned !== 0) {
+				if (await pwned(data.get('password'))) {
 					$('.error-message', this).text('That password may not be used as it was found in a known password leak. Please update your password wherever you have used it and enter a different password.').then(async $el => {
 						$el.unhide();
 						await sleep(30000);
